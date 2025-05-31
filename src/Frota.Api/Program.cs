@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Frota.Infra.Data.Interfaces;
 using Frota.Infra.Data.Contex;
 using Frota.Infra.Data.Repositories;
+using Frota.Application.Interfaces;
+using Frota.Application.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +25,23 @@ builder.Services.AddDbContext<ApiContext>(Options => {
                       Options.UseSqlServer(connectionString, dbOpts => dbOpts.MigrationsAssembly(typeof(Program).Assembly.FullName));
                    });
 
+builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
+builder.Services.AddScoped<IVeiculoService, VeiculoService>();   
+
+builder.Services.AddCors(
+    options => {
+        options.AddPolicy("cors",builder => {
+            builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+        });
+    }
+);
+
 var app = builder.Build();
+
+app.UseCors("cors");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -36,6 +54,6 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapControllers().AllowAnonymous();
 
 app.Run();

@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers/" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="../Frota.Application/Frota.Application.csproj" />
     <ProjectReference Include="../Frota.Infra.Data/Frota.Infra.Data.csproj" />
   </ItemGroup>
