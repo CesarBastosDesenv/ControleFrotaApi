@@ -36,6 +36,21 @@ public class VeiculoController : ControllerBase
             return BadRequest(er);
         }
     } 
+    [HttpGet("{Id}")]
+    public async Task<ActionResult> Get(Guid Id)
+    {
+       try
+        {
+            var result = await _veiculoService.BuscaVeiculoId(Id);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            var er = new ResultViewModel();
+            er.AddNotification("Erro", ex.Message);
+            return BadRequest(er);
+        } 
+    }
 
     [HttpPost]
     public async Task<ActionResult> Add(VeiculoCadastro args)

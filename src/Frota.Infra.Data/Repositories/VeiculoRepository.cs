@@ -4,6 +4,7 @@ using Frota.Domain.Pagination;
 using Frota.Infra.Data.Contex;
 using Frota.Infra.Data.Helpers;
 using Frota.Infra.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Frota.Infra.Data.Repositories;
 
@@ -30,6 +31,12 @@ public class VeiculoRepository : IVeiculoRepository
     {
         var query = _context.Veiculos.AsQueryable();
         return await PaginationHelper.CreateAsync(query, pageNumber, pageSize);
+    }
+
+    public async Task<Veiculo> BuscaVeiculoId(Guid Id)
+    {
+        return await _context.Veiculos.
+                       Where(x => x.Id == Id).FirstOrDefaultAsync();
     }
 
     public void DeletarVeiculo(Veiculo veiculo)

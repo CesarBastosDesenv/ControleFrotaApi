@@ -10,4 +10,6 @@ public interface IVeiculoService
     Task<ResultViewModel> UpdateAsync(VeiculoCadastro agenda);
 
     Task<PagedList> GetAllAsync(int pageNumber, int pageSize);
+
+    Task<ResultViewModel> BuscaVeiculoId(Guid Id);
 }

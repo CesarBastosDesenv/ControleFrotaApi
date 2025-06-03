@@ -33,6 +33,11 @@ public class VeiculoService : IVeiculoService
         return result;  
     }
 
+    public async Task<ResultViewModel> BuscaVeiculoId(Guid Id)
+    {
+        return new ResultViewModel(await _veiculoRepository.BuscaVeiculoId(Id));
+    }
+
     public async Task<PagedList> GetAllAsync(int pageNumber, int pageSize)
     {
          var retorno = await _veiculoRepository.BuscaVeiculo(pageNumber, pageSize);
