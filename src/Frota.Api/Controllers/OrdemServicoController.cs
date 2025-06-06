@@ -1,23 +1,23 @@
 using System;
-using Frota.Application.Interfaces;
+using Frota.Api.Extensions;
 using Frota.Api.Models;
 using Frota.Application.Dto;
-using Frota.Api.Extensions;
+using Frota.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Frota.Api.Controllers.VeiculoController;
+namespace Frota.Api.Controllers.OrdemServicoController;
 
 [Route("api/[controller]")]
 [ApiController]
-public class VeiculoController : ControllerBase
+public class OrdemServicoController : ControllerBase
 {
-    private ILogger<VeiculoController> _logger;
-    private IVeiculoService _veiculoService;
+    private ILogger<OrdemServicoController> _logger;
+    private IOrdemServicoService _ordemServicoService;
 
-    public VeiculoController(ILogger<VeiculoController> logger, IVeiculoService veiculoService)
+    public OrdemServicoController(ILogger<OrdemServicoController> logger, IOrdemServicoService ordemServicoService)
     {
         _logger = logger;
-        _veiculoService = veiculoService;
+        _ordemServicoService = ordemServicoService;
     }
 
     [HttpGet]
@@ -25,7 +25,7 @@ public class VeiculoController : ControllerBase
     {
         try
         {
-            var result = await _veiculoService.GetAllAsync(paginationParams.PageNumber,paginationParams.PageSize);
+            var result = await _ordemServicoService.GetAllAsync(paginationParams.PageNumber,paginationParams.PageSize);
             Response.AddPaginationHeader(new PaginationHeader(result.CurrentPage, result.PageSize, result.TotalCount, result.TotalPages));
             return Ok(result);
         }
@@ -41,7 +41,7 @@ public class VeiculoController : ControllerBase
     {
        try
         {
-            var result = await _veiculoService.BuscaVeiculoId(Id);
+            var result = await _ordemServicoService.BuscaOrdemServicoId(Id);
             return Ok(result);
         }
         catch (Exception ex)
@@ -53,12 +53,12 @@ public class VeiculoController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> Add(VeiculoCadastro args)
+    public async Task<ActionResult> Add(OrdemServicoCadastro args)
     {
         try
         {
             if (!ModelState.IsValid) return Ok(new ResultViewModel(args, ModelState));
-            var result = await _veiculoService.AddAsync(args);
+            var result = await _ordemServicoService.AddAsync(args);
             return Ok(result);
         }
         catch (Exception ex)
@@ -68,5 +68,4 @@ public class VeiculoController : ControllerBase
             return BadRequest(er);
         }
     }
-
 }

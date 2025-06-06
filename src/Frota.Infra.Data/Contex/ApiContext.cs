@@ -10,7 +10,8 @@ public class ApiContext : DbContext
     {
 
     }
-    
+
     public DbSet<Veiculo> Veiculos { get; set; }
+    public DbSet<OrdemServico> OrdemServicos { get; set; }
 
 }

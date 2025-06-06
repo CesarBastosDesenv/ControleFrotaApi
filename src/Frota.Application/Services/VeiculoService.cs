@@ -41,7 +41,7 @@ public class VeiculoService : IVeiculoService
     public async Task<PagedList> GetAllAsync(int pageNumber, int pageSize)
     {
          var retorno = await _veiculoRepository.BuscaVeiculo(pageNumber, pageSize);
-        var retornoModel = retorno.Select(x => new VeiculoView(){
+         var retornoModel = retorno.Select(x => new VeiculoView(){
             Id = x.Id,
             VeiculoNome = x.VeiculoNome,
             Status = x.Status 

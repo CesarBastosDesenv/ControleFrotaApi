@@ -26,7 +26,9 @@ builder.Services.AddDbContext<ApiContext>(Options => {
                    });
 
 builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
-builder.Services.AddScoped<IVeiculoService, VeiculoService>();   
+builder.Services.AddScoped<IOrdemServicoRepository, OrdemServicoRepository>();
+builder.Services.AddScoped<IVeiculoService, VeiculoService>();  
+builder.Services.AddScoped<IOrdemServicoService, OrdemServicoService>(); 
 
 builder.Services.AddCors(
     options => {
