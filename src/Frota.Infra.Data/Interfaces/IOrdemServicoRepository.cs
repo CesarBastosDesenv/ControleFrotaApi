@@ -8,6 +8,7 @@ namespace Frota.Infra.Data.Interfaces;
 public interface IOrdemServicoRepository
 {
     Task<PagedList<OrdemServico>> BuscaOrdemServico(int pageNumber, int pageSize);
+    Task<PagedList<OrdemServico>> ListaOrdemServicoId(int pageNumber, int pageSize, Guid VeiculoId);
     Task<OrdemServico> BuscaOrdemServicoId(Guid Id);
     void AdicionarOrdemServico(OrdemServico ordemServico);
     void AtualizarOrdemServico(OrdemServico ordemServico);

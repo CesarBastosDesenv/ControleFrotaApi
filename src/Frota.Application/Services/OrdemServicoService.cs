@@ -44,7 +44,23 @@ public class OrdemServicoService : IOrdemServicoService
 
     public async Task<PagedList> GetAllAsync(int pageNumber, int pageSize)
     {
-          var retorno = await _ordemServicoRepository.BuscaOrdemServico(pageNumber, pageSize);
+         var retorno = await _ordemServicoRepository.BuscaOrdemServico(pageNumber, pageSize);
+         var retornoModel = retorno.Select(x => new OrdemServicoView(){
+            Id = x.Id,
+            DtServico = x.DtServico,
+            TipoManutencao = x.TipoManutencao,
+            DefeitoApresentado = x.DefeitoApresentado,
+            Executor = x.Executor,
+            ValorMaoObra = x.ValorMaoObra,
+            VeiculoId = x.VeiculoId,
+            Status = x.Status
+            });
+        return new PagedList() {Data = retornoModel, TotalCount = retorno.TotalCount};
+    }
+
+    public async Task<PagedList> GetListId(int pageNumber, int pageSize, Guid VeiculoId)
+    {
+         var retorno = await _ordemServicoRepository.ListaOrdemServicoId(pageNumber, pageSize, VeiculoId);
          var retornoModel = retorno.Select(x => new OrdemServicoView(){
             Id = x.Id,
             DtServico = x.DtServico,

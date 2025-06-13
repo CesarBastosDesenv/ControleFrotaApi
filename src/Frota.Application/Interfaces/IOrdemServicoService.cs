@@ -11,5 +11,7 @@ public interface IOrdemServicoService
 
     Task<PagedList> GetAllAsync(int pageNumber, int pageSize);
 
+    Task<PagedList> GetListId(int pageNumber, int pageSize, Guid VeiculoId);
+
     Task<ResultViewModel> BuscaOrdemServicoId(Guid Id);
 }

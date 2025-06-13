@@ -44,6 +44,13 @@ public class OrdemServicoRepository : IOrdemServicoRepository
         _context.Remove(ordemServico);
     }
 
+    public async Task<PagedList<OrdemServico>> ListaOrdemServicoId(int pageNumber, int pageSize, Guid VeiculoId)
+    {
+        var query = _context.OrdemServicos.AsQueryable();
+        query = query.Where(x => x.VeiculoId == VeiculoId);
+        return await PaginationHelper.CreateAsync(query, pageNumber, pageSize);
+    }
+
     public async Task<bool> SaveChangesAsync()
     {
         return await _context.SaveChangesAsync() > 0;
